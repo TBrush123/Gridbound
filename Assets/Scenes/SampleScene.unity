@@ -846,6 +846,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f19730f4d31092428a19d3aea8b6562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveCooldown: 0.12
+  moveTimer: 0
+  isMoving: 0
   BattleGrid: {fileID: 51758641}
   playerPosition: {x: 1, y: 1}
 --- !u!212 &568556362

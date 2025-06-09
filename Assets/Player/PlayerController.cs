@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
@@ -5,6 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float moveCooldown = 0.12f;
+    public float moveTimer = 0f;
+    public bool isMoving = false; // Flag to check if the player is moving
     public GameObject BattleGrid;
     public Dictionary<Vector2Int, GameObject> tiles = new Dictionary<Vector2Int, GameObject>();
     public Vector2Int playerPosition = new Vector2Int(1, 1); // Starting position of the player
@@ -29,29 +33,29 @@ public class PlayerController : MonoBehaviour
                 tiles[position] = tile;
             }
         }
-        MovePlayer(playerPosition);// Set initial player position
+        StartCoroutine(MovePlayer(playerPosition));// Set initial player position
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Check for player input and move accordingly
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             CheckMoveAbility("A");
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
             CheckMoveAbility("S");
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             CheckMoveAbility("D");
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W))
         {
             CheckMoveAbility("W");
         }
+         // Reset the timer after processing input
     }
 
     private bool CheckMoveAbility(string direction)
@@ -72,16 +76,28 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Tile is not yours: " + direction);
             return false; // Tile is not a player tile
         }
-        MovePlayer(newPosition); // Move player
+        StartCoroutine(MovePlayer(newPosition)); // Move player
         return true;
     }
-    public void MovePlayer(Vector2Int newPosition)
+    public IEnumerator MovePlayer(Vector2Int newPosition)
     {
+        if (isMoving) // Check if the player is already moving
+        {
+            yield break; // Exit if already moving
+        }
+        isMoving = true; // Set moving flag to true
+        yield return new WaitForSeconds(moveCooldown);
+
         playerPosition = newPosition; // Update player position
+
         float newX = tiles[playerPosition].transform.position.x + 0.1f;
         float newY = tiles[playerPosition].transform.position.y + 1.4f;
+
         transform.position = new Vector3(newX, newY, -1); // Move player to new position
         tiles[playerPosition].GetComponent<TileController>().OccupiedBy = gameObject; // Update tile occupation
+
+        yield return new WaitForSeconds(moveCooldown);
+        isMoving = false; // Reset moving flag
     }
 }
 
