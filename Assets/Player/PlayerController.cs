@@ -39,7 +39,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot(); // Call the Shoot method when the left mouse button is pressed
+        }
+        else if (Input.GetKey(KeyCode.A))
         {
             CheckMoveAbility("A");
         }
@@ -78,6 +82,14 @@ public class PlayerController : MonoBehaviour
         }
         StartCoroutine(MovePlayer(newPosition)); // Move player
         return true;
+    }
+    private void Shoot()
+    {
+        // Implement shooting logic here
+        Debug.Log("Shoot action triggered!");
+        // ToDo: Implement shooting logic here
+    
+    
     }
     public IEnumerator MovePlayer(Vector2Int newPosition)
     {
