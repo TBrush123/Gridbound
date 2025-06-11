@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public float health = 100f; // Health of the enemy
     public GameObject BattleGrid; // Reference to the BattleGrid GameObject
     public float moveDelay = 2f; // Delay before the enemy moves
     public Vector2Int enemyPosition; 
@@ -82,5 +83,15 @@ public class EnemyController : MonoBehaviour
         float newY = tiles[enemyPosition].transform.position.y;
         transform.position = new Vector3(newX, newY, -1); // Move enemy to new position
         tiles[enemyPosition].GetComponent<TileController>().OccupiedBy = gameObject; // Update tile occupation
+    }
+    public void TakeDamage(float damage)
+    {
+        // Implement enemy damage logic here
+        Debug.Log($"Enemy at position {enemyPosition} took {damage} damage.");
+        health -= damage;
+        if (health <= 0f)
+        {
+            Destroy(gameObject); // Call the Die method if health is zero or below
+        }
     }
 }

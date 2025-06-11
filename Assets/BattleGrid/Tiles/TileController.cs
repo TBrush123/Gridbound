@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour
 {
-    public GameObject OccupiedBy;
+    public GameObject OccupiedBy = null;
     public Vector2Int position;
     public string tileType;
     private Dictionary<string, Sprite> tilePrefab;

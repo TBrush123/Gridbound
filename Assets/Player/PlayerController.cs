@@ -85,11 +85,24 @@ public class PlayerController : MonoBehaviour
     }
     private void Shoot()
     {
-        // Implement shooting logic here
-        Debug.Log("Shoot action triggered!");
-        // ToDo: Implement shooting logic here
-    
-    
+        for (int i = playerPosition.x; i < 6; i++)
+        {
+            Vector2Int targetPosition = new Vector2Int(i, playerPosition.y);
+            if (!tiles.ContainsKey(targetPosition))
+            {
+                return;
+            }
+            TileController currentTileController = tiles[targetPosition].GetComponent<TileController>();
+            if (currentTileController.tileType == "EnemyTile" &&
+                currentTileController.OccupiedBy != null)
+            {
+                GameObject enemy = currentTileController.OccupiedBy;
+                enemy.GetComponent<EnemyController>().TakeDamage(10); // Example damage value
+                Debug.Log("Shooting at enemy at position: " + targetPosition);
+                // Implement shooting logic here
+                break; // Exit after shooting the first enemy
+            }
+        }
     }
     public IEnumerator MovePlayer(Vector2Int newPosition)
     {
