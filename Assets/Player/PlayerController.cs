@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveCooldown = 0.12f;
+    public float moveCooldown = 0.1f;
     public float moveTimer = 0f;
     public bool isMoving = false; // Flag to check if the player is moving
     public GameObject BattleGrid;
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Shoot()
     {
-        for (int i = playerPosition.x; i < 6; i++)
+        for (int i = playerPosition.x; i < 8; i++)
         {
             Vector2Int targetPosition = new Vector2Int(i, playerPosition.y);
             if (!tiles.ContainsKey(targetPosition))

@@ -17,7 +17,7 @@ public class TileController : MonoBehaviour
             { "PlayerTile", Resources.Load<Sprite>("Tile/TilePlayer") },
             { "EnemyTile", Resources.Load<Sprite>("Tile/TileEnemy") },
         };
-        tileType = (position.x <= 2) ? "PlayerTile" : "EnemyTile"; // Default tile type, can be changed later
+        tileType = (position.x <= 3) ? "PlayerTile" : "EnemyTile"; // Default tile type, can be changed later
         SetTileType(tileType);
     }
 
