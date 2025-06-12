@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
         {
             CheckMoveAbility("W");
         }
-         // Reset the timer after processing input
     }
 
     private bool CheckMoveAbility(string direction)
@@ -103,6 +102,10 @@ public class PlayerController : MonoBehaviour
                 break; // Exit after shooting the first enemy
             }
         }
+    }
+    private void Magic()
+    {
+        // TODO: Implement magic logic
     }
     public IEnumerator MovePlayer(Vector2Int newPosition)
     {
