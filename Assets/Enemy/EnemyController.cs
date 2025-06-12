@@ -8,9 +8,9 @@ public class EnemyController : MonoBehaviour
 {
     public float health = 100f; // Health of the enemy
     public GameObject BattleGrid; // Reference to the BattleGrid GameObject
-    public float moveDelay = 2f; // Delay before the enemy moves
     public Vector2Int enemyPosition; 
-    private float moveTimer = 0f; // Timer to track the delay
+    public float cooldown = 2f; // Cooldown for enemy movement
+    private float lastMoveTime = 0f; // Time of the last move
     private Dictionary<Vector2Int, GameObject> tiles = new Dictionary<Vector2Int, GameObject>();
     private Dictionary<string, Vector2Int> moveOptions = new Dictionary<string, Vector2Int>()
     {
@@ -43,19 +43,19 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveTimer += Time.deltaTime; // Increment the move timer
-        if (moveTimer < moveDelay)
+        if (Time.time - lastMoveTime < cooldown) // Check if cooldown has passed
         {
-            return; // Reset the timer
+            return;
         }
+
         List<Vector2Int> availableMoves = CheckAvailableMoves(); // Get available moves
         Debug.Log($"Available Moves: {availableMoves.Count}"); // Log the number of available moves
         if (availableMoves.Count > 0)
         {
             Vector2Int moveTo = availableMoves[RandomManager.Range(0, availableMoves.Count)]; // Randomly select a move
             MoveEnemy(moveTo); // Move enemy to the new position
+            lastMoveTime = Time.time; // Update last move time
         }
-        moveTimer = 0f; // Reset the timer after moving
     }
     private List<Vector2Int> CheckAvailableMoves()
     {
