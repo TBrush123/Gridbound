@@ -852,8 +852,8 @@ GameObject:
   m_Component:
   - component: {fileID: 568556363}
   - component: {fileID: 568556362}
-  - component: {fileID: 568556361}
   - component: {fileID: 568556364}
+  - component: {fileID: 568556365}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -861,24 +861,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &568556361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568556360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f19730f4d31092428a19d3aea8b6562, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveCooldown: 0.1
-  moveTimer: 0
-  isMoving: 0
-  BattleGrid: {fileID: 51758641}
-  playerPosition: {x: 1, y: 1}
-  fireballsigil: {fileID: 11400000, guid: d4f85cfe27c862540bf82cad8d97eada, type: 2}
 --- !u!212 &568556362
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -971,6 +953,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &568556365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568556360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f19730f4d31092428a19d3aea8b6562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveCooldown: 0.1
+  moveTimer: 0
+  BattleGrid: {fileID: 51758641}
+  playerPosition: {x: 1, y: 1}
 --- !u!4 &568932677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8990167561710799210, guid: 73fcf541bced45341ac5bfb20fdf9080, type: 3}
@@ -1504,6 +1502,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73fcf541bced45341ac5bfb20fdf9080, type: 3}
+--- !u!1 &919381012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 919381014}
+  - component: {fileID: 919381013}
+  m_Layer: 0
+  m_Name: SigilManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &919381013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919381012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf646bd8f3869a4d91ace432422e6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FireballPrefab: {fileID: 7536125182257492308, guid: 02aba1ddfd3a875478852f556dd985eb, type: 3}
+  Player: {fileID: 568556360}
+--- !u!4 &919381014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919381012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00561, y: 1.49108, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &926344475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2887,3 +2931,4 @@ SceneRoots:
   - {fileID: 568556363}
   - {fileID: 51758642}
   - {fileID: 747726662}
+  - {fileID: 919381014}

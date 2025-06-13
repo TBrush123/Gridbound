@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public delegate void PlayerUsedSigilEventHandler(Vector2Int PlayerPosition, GameObject Player);
+    public event PlayerUsedSigilEventHandler PlayerUsedSigil; // Event to notify when a sigil is used
+
     [SerializeField] private float moveCooldown = 0.1f;
     [SerializeField] private float moveTimer = 0f;
     private bool isMoving = false; // Flag to check if the player is moving
@@ -106,13 +109,14 @@ public class PlayerController : MonoBehaviour
                 enemy.GetComponent<EnemyController>().TakeDamage(10); // Example damage value
                 Debug.Log("Shooting at enemy at position: " + targetPosition);
                 // Implement shooting logic here
-                break; // Exit after shooting the first enemy
+                break; // Exit after shooting the first enemy      
+
             }
         }
     }
     private void UseSigil(int sigilIndex)
     {
-        sigils[sigilIndex].Activate(playerPosition, gameObject); // Activate the sigil at the player's position
+        PlayerUsedSigil?.Invoke(playerPosition, gameObject); // Invoke the event to notify that a sigil has been used
     }
     public IEnumerator MovePlayer(Vector2Int newPosition)
     {
