@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveCooldown = 0.1f;
-    public float moveTimer = 0f;
-    public bool isMoving = false; // Flag to check if the player is moving
-    public GameObject BattleGrid;
-    public Dictionary<Vector2Int, GameObject> tiles = new Dictionary<Vector2Int, GameObject>();
-    public Vector2Int playerPosition = new Vector2Int(1, 1); // Starting position of the player
+    [SerializeField] private float moveCooldown = 0.1f;
+    [SerializeField] private float moveTimer = 0f;
+    private bool isMoving = false; // Flag to check if the player is moving
+    [SerializeField] private GameObject BattleGrid;
+    [SerializeField] private Dictionary<Vector2Int, GameObject> tiles = new Dictionary<Vector2Int, GameObject>();
+    [SerializeField] private Vector2Int playerPosition = new Vector2Int(1, 1); // Starting position of the player
     private Dictionary<string, Vector2Int> moveOptions = new Dictionary<string, Vector2Int>()
     {
         { "W", new Vector2Int(0, -1) }, // Up
@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
         { "S", new Vector2Int(0, 1) }, // Down
         { "D", new Vector2Int(1, 0) } // Right
     };
+
+    [SerializeField] private List<ISigil> sigils = new List<ISigil>(); // List of sigils
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         StartCoroutine(MovePlayer(playerPosition));// Set initial player position
+        sigils.Add(new FireballSigil()); // Add a fireball sigil to the player's sigils list
     }
 
     // Update is called once per frame
@@ -58,6 +61,10 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.W))
         {
             CheckMoveAbility("W");
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UseSigil(0); // Call the UseMagic method when the space key is pressed
         }
     }
 
@@ -103,9 +110,9 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    private void Magic()
+    private void UseSigil(int sigilIndex)
     {
-        // TODO: Implement magic logic
+        sigils[sigilIndex].Activate(playerPosition, gameObject); // Activate the sigil at the player's position
     }
     public IEnumerator MovePlayer(Vector2Int newPosition)
     {
