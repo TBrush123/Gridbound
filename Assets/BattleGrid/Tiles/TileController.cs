@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TileController : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     public GameObject OccupiedBy = null;
     public Vector2Int position;
     public string tileType;
@@ -19,6 +20,7 @@ public class TileController : MonoBehaviour
         };
         tileType = (position.x <= 3) ? "PlayerTile" : "EnemyTile"; // Default tile type, can be changed later
         SetTileType(tileType);
+        transform.position = gameManager.TileToWorldPosition(position);
     }
 
     // Update is called once per frame
